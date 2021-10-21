@@ -1,10 +1,29 @@
+// import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'pages/screening.dart';
+import 'package:camera/camera.dart';
+import 'package:provider/provider.dart';
+import 'state_management/widget_controller.dart';
+import 'pages/checker.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  final firstCamera = cameras.first;
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MultiProvider(providers: [
+      ChangeNotifierProvider(
+          create: (_) => WidgetController(camera: firstCamera)),
+    ], child: const MyApp()));
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -54,10 +73,9 @@ enum Pages { scanning, checker }
 
 class _MyHomePageState extends State<MyHomePage> {
   Pages? currentPage;
-  Route _createScreeningRoute() {
+  Route _createAnimatedRoute(Widget route) {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const Screening(),
+      pageBuilder: (context, animation, secondaryAnimation) => route,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
@@ -75,12 +93,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         currentPage = Pages.scanning;
       });
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     precacheImage(AssetImage("assets/images/cervix_screening.jpg"), context);
     precacheImage(AssetImage("assets/images/scanning_tests.jpg"), context);
     // This method is rerun every time setState is called, for instance as done
@@ -115,11 +138,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Expanded(
                     child: InkWell(
+                      // onDoubleTap: () {
+                      //   Navigator.of(context).push(_createAnimatedRoute());
+                      // },
                       onTap: () {
+                        if (currentPage == Pages.scanning) {
+                          Navigator.of(context)
+                              .push(_createAnimatedRoute(const Screening()));
+                        } else {
+                          setState(() {
+                            currentPage = Pages.scanning;
+                          });
+                        }
                         print('scanning section is clicked');
-                        setState(() {
-                          currentPage = Pages.scanning;
-                        });
                       },
                       child: AnimatedContainer(
                         duration: const Duration(seconds: 1),
@@ -197,8 +228,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 color: Colors.blue,
                                 onPressed: () {
                                   print('screening button is pressed');
-                                  Navigator.of(context)
-                                      .push(_createScreeningRoute());
+                                  // Navigator.of(context)
+                                  //     .push(_createAnimatedRoute());
                                 },
                                 icon: const Icon(
                                   Icons.play_circle_fill,
@@ -216,6 +247,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () {
                         print('checker section is clicked');
                         setState(() {
+                          if (currentPage == Pages.checker) {
+                            Navigator.of(context)
+                                .push(_createAnimatedRoute(const Checker()));
+                          }
                           currentPage = Pages.checker;
                         });
                       },
