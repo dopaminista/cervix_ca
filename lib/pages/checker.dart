@@ -8,6 +8,52 @@ class Checker extends StatefulWidget {
 }
 
 class _CheckerState extends State<Checker> {
+  @override
+  // void initState(){
+  //   Future.delayed(Duration.zero, ()async{
+  // /// Will used to access the Animated list
+  // /// for (int item in _fetchedItems) {
+  //   // 1) Wait for one second
+  //   await Future.delayed(Duration(milliseconds: 1000));
+  //   // 2) Adding data to actual variable that holds the item.
+  //   _items.add(item);
+  //   // 3) Telling animated list to start animation
+  //   listKey.currentState.insertItem(_items.length - 1);
+  // }
+  //   });
+  // }
+  // /// Will used to access the Animated list
+  // final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+
+  // /// This holds the items
+  // List<int> _items = [];
+
+  /// This holds the item count
+  int counter = 0;
+
+  // Widget slideIt(BuildContext context, int index, animation) {
+  //   int item = _items[index];
+
+  //   return SlideTransition(
+  //     position: Tween<Offset>(
+  //       begin: const Offset(-1, 0),
+  //       end: Offset(0, 0),
+  //     ).animate(animation),
+  //     child: SizedBox(
+  //       // Actual widget to display
+  //       height: 128.0,
+  //       child: Card(
+  //         color: Colors.primaries[item % Colors.primaries.length],
+  //         child: Center(
+  //           child: Text(
+  //             'Item $item',
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   List<Widget> animatedChildren = [];
   var _genderValue;
   var _selectedValue;
@@ -93,23 +139,22 @@ class _CheckerState extends State<Checker> {
                       ],
                     ),
                   )),
-              SizedBox(
-                height: size.height / 20,
-              ),
-              TextButton(
-                  onPressed: () {
-                    setState(() {
-                      animatedChildren.removeLast();
-                    });
-                  },
-                  child: Text('press me to change animated switcher afdljk')),
-              AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
-                child: Column(
-                  children: animatedChildren,
+              Container(
+                padding: EdgeInsets.all(15),
+                child: TextButton(
+                  child: Text('add child'),
+                  onPressed: () {},
                 ),
               ),
-
+              // Expanded(
+              //   child: AnimatedList(
+              //     key: listKey,
+              //     initialItemCount: _items.length,
+              //     itemBuilder: (context, index, animation) {
+              //       return slideIt(context, index, animation); // Refer step 3
+              //     },
+              //   ),
+              // ),
               // FractionallySizedBox(
               //   widthFactor: 0.9,
               //   child: DropdownButtonFormField(
