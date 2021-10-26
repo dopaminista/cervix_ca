@@ -20,12 +20,12 @@ credit to: [Samuel Ozechi](https://www.kaggle.com/chiebukar/cervical-cancer-scre
 App consist of two sections, 
 only the first one is available right now
 
-![video example](markdown_documents/home_page.gif)
+<img src="markdown_documents/home_page.gif" width="40%" height="40%"/>
 
 
 # Let's evaluate one sample with AI !
 
-![video example](markdown_documents/app_tour.gif)
+<img src="markdown_documents/app_tour.gif" width="40%" height="40%"/>
 
 
 
