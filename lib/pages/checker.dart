@@ -139,11 +139,11 @@ class _CheckerState extends State<Checker> {
                       ],
                     ),
                   )),
-              Container(
-                padding: EdgeInsets.all(15),
-                child: TextButton(
-                  child: Text('add child'),
-                  onPressed: () {},
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(15),
+                  child: Text('Under development'),
                 ),
               ),
               // Expanded(
