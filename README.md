@@ -20,6 +20,11 @@ credit to: [Samuel Ozechi](https://www.kaggle.com/chiebukar/cervical-cancer-scre
 App consist of two sections, 
 only the first one is available right now
 
+App is not configured to work on IOS, Web or Desktop. 
+App is just tested on android.
+
+
+
 <img src="markdown_documents/home_page.gif" width="40%" height="40%"/>
 
 
