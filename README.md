@@ -25,12 +25,15 @@ App is just tested on android.
 
 
 
-<img src="markdown_documents/home_page.gif" width="40%" height="40%"/>
+
 
 
 # Let's evaluate one sample with AI !
 
 <img src="markdown_documents/app_tour.gif" width="40%" height="40%"/>
+
+
+<img src="markdown_documents/home_page.gif" width="40%" height="40%"/>
 
 
 
